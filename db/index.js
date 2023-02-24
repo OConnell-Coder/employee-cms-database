@@ -1,4 +1,5 @@
 const connection = require('./connection');
+const cTable = require('console.table');
 
 class DB {
     constructor(connection){
@@ -8,7 +9,13 @@ class DB {
     showDepartment() {
         return this.connection.promise().query(
             "SELECT * FROM department"
-        )
+        ).then(([data]) => console.table(data))
+    };
+
+    addDepartment({name}) {
+        return this.connection.promise().query(
+            "INSERT INTO department SET ?", {name}
+        );
     };
 
     showRoles() {
@@ -21,7 +28,13 @@ class DB {
             FROM role AS r
             JOIN department AS d
             ON r.department_id = d.id;`
-        )
+        ).then(([data]) => console.table(data))
+    };
+
+    listRoles() {
+        return this.connection.promise().query(
+            'SELECT title name, id value FROM role'
+        ).then(([data]) => data);
     };
 
     showEmployees() {
@@ -41,6 +54,13 @@ class DB {
             ON e1.manager_id = e2.id;`
         )
     };
+
+    addEmployee({first_name, last_name, role_id, manager_id}) {
+        return this.connection.promise().query(
+            'INSERT INTO employees SET ?', {first_name, last_name, role_id, manager_id}
+        );
+    };
 };
 
 
+module.exports = new DB(connection);
