@@ -12,6 +12,12 @@ class DB {
         ).then(([data]) => console.table(data))
     };
 
+    listDepartments() {
+        return this.connection.promise().query(
+            `SELECT id AS value, name FROM department;`
+        ).then(([data]) => data);
+    };
+
     addDepartment({name}) {
         return this.connection.promise().query(
             "INSERT INTO department SET ?", {name}
@@ -33,8 +39,14 @@ class DB {
 
     listRoles() {
         return this.connection.promise().query(
-            'SELECT title name, id value FROM role'
+            'SELECT id AS value, title FROM role'
         ).then(([data]) => data);
+    };
+
+    addRole({title, salary, department_id}) {
+        return this.connection.promise().query(
+            "INSERT INTO role SET ?", {title, salary, department_id}
+        );
     };
 
     showEmployees() {
@@ -55,6 +67,12 @@ class DB {
             JOIN employee AS e2
             ON e1.manager_id = e2.id;`
         ).then(([data]) => console.table(data))
+    };
+
+    listManagers() {
+        return this.connection.promise().query(
+            'SELECT id AS value, concat(first_name, " ", last_name) FROM employee WHERE manager_id = null'
+        ).then(([data]) => data);
     };
 
     addEmployee({first_name, last_name, role_id, manager_id}) {

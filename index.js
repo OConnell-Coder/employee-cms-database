@@ -9,6 +9,7 @@ const init = () => {
         if(task == 'view all roles') DB.showRoles().then(init);
         if(task == 'view all employees') DB.showEmployees().then(init);
         if(task == 'add a department') DB.addDepartment(ans).then(init);
+        if(task == 'add a role') DB.addRole(ans).then(init);
         if(task == 'add an employee') DB.addEmployee(ans).then(init);
     });
 };
