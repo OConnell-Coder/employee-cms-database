@@ -43,16 +43,18 @@ class DB {
                 e1.id,
                 e1.first_name,
                 e1.last_name,
-                e1.title,
+                r.title AS title,
                 d.name AS department,
-                d.salary,
+                r.salary AS salary,
                 concat(e2.first_name, " ", e2.last_name) AS manager
             FROM employee AS e1
+            JOIN role AS r
+            ON e1.role_id = r.id
             JOIN department AS d
-            ON e1.department_id = d.id,
+            ON r.department_id = d.id
             JOIN employee AS e2
             ON e1.manager_id = e2.id;`
-        )
+        ).then(([data]) => console.table(data))
     };
 
     addEmployee({first_name, last_name, role_id, manager_id}) {
