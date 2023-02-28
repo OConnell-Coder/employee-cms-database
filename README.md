@@ -20,7 +20,7 @@ Download this CLI application.
 
 Follow the command-line prompts to view all departments, view all roles, view all employees, add a department, add a role, add an employee, or update an employee's role.
 
-Walkthrough Video Link: 
+Walkthrough Video Link: https://drive.google.com/file/d/1FgzXHpe0mOMQqcpeIME4uMuFFp0ZiMZA/view
 
 ## Credits
 
@@ -34,4 +34,4 @@ MIT License
 
 GitHub Repo Link: https://github.com/OConnell-Coder/employee-cms-database
 
-Walkthrough Video Link:
+Walkthrough Video Link: https://drive.google.com/file/d/1FgzXHpe0mOMQqcpeIME4uMuFFp0ZiMZA/view
