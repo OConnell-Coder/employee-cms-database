@@ -12,11 +12,10 @@ class DB {
         ).then(([data]) => console.table(data))
     };
 
-    listDepartments() {
-        return this.connection.promise().query(
-            `SELECT id AS value, name FROM department;`
+    listDepartments = () => 
+        this.connection.promise().query(
+            `SELECT id AS value, name FROM department`
         ).then(([data]) => data);
-    };
 
     addDepartment({name}) {
         return this.connection.promise().query(
@@ -37,11 +36,10 @@ class DB {
         ).then(([data]) => console.table(data))
     };
 
-    listRoles() {
-        return this.connection.promise().query(
-            'SELECT id AS value, title FROM role'
+    listRoles = () =>
+        this.connection.promise().query(
+            'SELECT id AS value, title AS name FROM role'
         ).then(([data]) => data);
-    };
 
     addRole({title, salary, department_id}) {
         return this.connection.promise().query(
@@ -69,17 +67,26 @@ class DB {
         ).then(([data]) => console.table(data))
     };
 
-    listManagers() {
-        return this.connection.promise().query(
-            'SELECT id AS value, concat(first_name, " ", last_name) FROM employee WHERE manager_id = null'
+    listEmployees = () =>
+        this.connection.promise().query(
+            'SELECT id AS value, concat(first_name, " ", last_name) AS name FROM employee'
         ).then(([data]) => data);
-    };
 
     addEmployee({first_name, last_name, role_id, manager_id}) {
         return this.connection.promise().query(
-            'INSERT INTO employees SET ?', {first_name, last_name, role_id, manager_id}
+            'INSERT INTO employee SET ?', {first_name, last_name, role_id, manager_id}
         );
     };
+
+    updateEmployee = ({id, role_id, manager_id}) =>
+        this.connection.promise().query(
+            'UPDATE employee SET ? WHERE ?', [{role_id, manager_id}, {id}]
+        );
+
+    removeRecord = ({location, record_id}) =>
+        this.connection.promise().query(
+            `DELETE FROM ${location} WHERE id = ?`, [record_id]
+        );
 };
 
 
